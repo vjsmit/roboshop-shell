@@ -22,7 +22,7 @@ unzip /tmp/catalogue.zip
 echo -e "\e[31m>>>>>>>>>>>>>Download the dependencies<<<<<<<<<<<<<<\e[0m"
 npm install
 
-echo -e "\e[31m>>>>>>>>>>>>>Setup a new service in systemd<<<<<<<<<<<<<<\e[0m"
+echo -e "\e[31m>>>>>>>>>>>>>Copy Catalogue system D file<<<<<<<<<<<<<<\e[0m"
 cp catalogue.service /etc/systemd/system/catalogue.service
 
 echo -e "\e[31m>>>>>>>>>>>>>Load the service<<<<<<<<<<<<<<\e[0m"
@@ -30,10 +30,10 @@ systemctl daemon-reload
 systemctl enable catalogue
 systemctl start catalogue
 
-echo -e "\e[31m>>>>>>>>>>>>>Setup MongoDB repo<<<<<<<<<<<<<<\e[0m"
+echo -e "\e[31m>>>>>>>>>>>>>Copy MongoDB repo<<<<<<<<<<<<<<\e[0m"
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 
-echo -e "\e[31m>>>>>>>>>>>>>Iinstall mongodb-client<<<<<<<<<<<<<<\e[0m"
+echo -e "\e[31m>>>>>>>>>>>>>Install mongodb-client<<<<<<<<<<<<<<\e[0m"
 yum install mongodb-org-shell -y
 
 echo -e "\e[31m>>>>>>>>>>>>>Load Schema<<<<<<<<<<<<<<\e[0m"
