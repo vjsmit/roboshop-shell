@@ -15,5 +15,5 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip
 
 echo -e "\e[36m>>>>>>>>>>>>>>>Restart Nginx Service<<<<<<<<<<<<<<<<<<<<<<"
-systemctl restart nginx
 systemctl enable nginx
+systemctl restart nginx
