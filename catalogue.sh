@@ -10,7 +10,7 @@ useradd roboshop
 echo -e "\e[31m>>>>>>>>>>>>>setup an app directory<<<<<<<<<<<<<<\e[0m"
 rm -rf /app
 mkdir /app
-echo -e "\e[31m>>>>>>>>>>>>>Ok<<<<<<<<<<<<<<\e[0m"
+echo -e "\e[31mOk\e[0m"
 
 echo -e "\e[31m>>>>>>>>>>>>>Download app content<<<<<<<<<<<<<<\e[0m"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
