@@ -3,6 +3,9 @@ yum install maven -y
 
 echo -e "\e[31m>>>>>>>>>>>>>>Add app user<<<<<<<<<<<<<<\e[0m"
 useradd roboshop
+script_path=$(dirname $0)
+source ${script_path}/common.sh
+
 
 echo -e "\e[31m>>>>>>>>>>>>>>setup an app directory<<<<<<<<<<<<<<\e[0m"
 rm-rf /app
@@ -20,7 +23,7 @@ mvn clean package
 mv target/shipping-1.0.jar shipping.jar
 
 echo -e "\e[31m>>>>>>>>>>>>>>Copy service file<<<<<<<<<<<<<<\e[0m"
-cp /root/roboshop-shell/shipping.service /etc/systemd/system/shipping.service
+cp ${script_path}/shipping.service /etc/systemd/system/shipping.service
 
 echo -e "\e[31m>>>>>>>>>>>>>>Install MYSQL Client<<<<<<<<<<<<<<\e[0m"
 yum install mysql -y

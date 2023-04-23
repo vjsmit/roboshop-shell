@@ -1,8 +1,12 @@
+script_path=$(dirname $0)
+source ${script_path}/common.sh
+
+
 echo -e "\e[31m>>>>>>>>>>DisableMySQL 8 Version<<<<<<<<<<<<<<\e[0m"
 dnf module disable mysql -y
 
 echo -e "\e[31m>>>>>>>>>>Copy MySQL5.7 repo file<<<<<<<<<<<<<<\e[0m"
-cp /root/roboshop-shell/mysql.repo /etc/yum.repos.d/mysql.repo
+cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo
 
 echo -e "\e[31m>>>>>>>>>>Install MySQL Server<<<<<<<<<<<<<<\e[0m"
 yum install mysql-community-server -y
