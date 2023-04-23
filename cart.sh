@@ -1,7 +1,7 @@
 script=$(realpath $0)
 script_path=$(dirname $script)
 
-dirname$0
+dirname $0
 exit
 
 source ${script_path}/common.sh
