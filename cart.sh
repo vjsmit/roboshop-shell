@@ -1,7 +1,9 @@
+script=$(realpath $0)
+realpath $0
+
+
 script_path=$(dirname $0)
 source ${script_path}/common.sh
-
-
 
 echo -e "\e[31m>>>>>>>>>>>Setup NodeJS repo<<<<<<<<<<<<<<\e[0m"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash
@@ -32,5 +34,6 @@ echo -e "\e[31m>>>>>>>>>>>Load the service<<<<<<<<<<<<<<\e[0m"
 systemctl daemon-reload
 systemctl enable cart
 systemctl start cart
+
 
 
