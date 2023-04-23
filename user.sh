@@ -26,7 +26,7 @@ echo -e "\e[31m>>>>>>>>>>>download the dependencies<<<<<<<<<<<<<<\e[0m"
 npm install
 
 echo -e "\e[31m>>>>>>>>>>>Copy SystemD User Service<<<<<<<<<<<<<<\e[0m"
-cp /root/roboshop-shell/user.service /etc/systemd/system/user.service
+cp ${script_path}/user.service /etc/systemd/system/user.service
 
 echo -e "\e[31m>>>>>>>>>>>Load the service<<<<<<<<<<<<<<\e[0m"
 systemctl daemon-reload
@@ -34,7 +34,7 @@ systemctl enable user
 systemctl start user
 
 echo -e "\e[31m>>>>>>>>>>>Copy MongoDB repo<<<<<<<<<<<<<<\e[0m"
-cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
+cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
 
 echo -e "\e[31m>>>>>>>>>>>Installing mongodb-client repo<<<<<<<<<<<<<<\e[0m"
 yum install mongodb-org-shell -y
