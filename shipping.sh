@@ -12,7 +12,9 @@ useradd roboshop
 
 echo -e "\e[31m>>>>>>>>>>>>>>setup an app directory<<<<<<<<<<<<<<\e[0m"
 rm -rf /app
+echo -e "\e[31mRemove existing app directory\e[0m"
 mkdir /app
+echo -e "\e[31mOk\e[0m"
 
 echo -e "\e[31m>>>>>>>>>>>>>>Download app code<<<<<<<<<<<<<<\e[0m"
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip
