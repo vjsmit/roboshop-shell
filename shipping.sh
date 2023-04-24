@@ -1,11 +1,13 @@
+script=$(realpath $0)
+script_path=$(dirname $script)
+source ${script_path}/common.sh
+
+
 echo -e "\e[31m>>>>>>>>>>>>>>Install Maven<<<<<<<<<<<<<<\e[0m"
 yum install maven -y
 
 echo -e "\e[31m>>>>>>>>>>>>>>Add app user<<<<<<<<<<<<<<\e[0m"
 useradd roboshop
-script_path=$(dirname $0)
-source ${script_path}/common.sh
-
 
 echo -e "\e[31m>>>>>>>>>>>>>>setup an app directory<<<<<<<<<<<<<<\e[0m"
 rm-rf /app
