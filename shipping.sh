@@ -1,6 +1,7 @@
 script=$(realpath $0)
 script_path=$(dirname $script)
 source ${script_path}/common.sh
+mysql_pwd=$1
 
 
 echo -e "\e[31m>>>>>>>>>>>>>>Install Maven<<<<<<<<<<<<<<\e[0m"
@@ -31,7 +32,7 @@ echo -e "\e[31m>>>>>>>>>>>>>>Install MYSQL Client<<<<<<<<<<<<<<\e[0m"
 yum install mysql -y
 
 echo -e "\e[31m>>>>>>>>>>>>>>load schema to the DB.<<<<<<<<<<<<<<\e[0m"
-mysql -h mysql-dev.smitdevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
+mysql -h mysql-dev.smitdevops.online -uroot -p${mysql_pwd} < /app/schema/shipping.sql
 
 echo -e "\e[31m>>>>>>>>>>>>>>Load the service<<<<<<<<<<<<<<\e[0m"
 systemctl daemon-reload
