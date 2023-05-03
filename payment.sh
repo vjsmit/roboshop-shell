@@ -3,32 +3,36 @@ script_path=$(dirname $script)
 source ${script_path}/common.sh
 rabbitmq_appuser_pwd=$1
 
+if [-z "$rabbitmq_appuser_pwd"]; then
+  echo rabbitmq appuser pwd missing
+  exit
+fi
 
-echo -e "\e[31m>>>>>>>>>>>Install Python 3.6<<<<<<<<<<\e[0m"
+print_head "Install Python 3.6"
 yum install python36 gcc python3-devel -y
 
-echo -e "\e[31m>>>>>>>>>>>Add app user<<<<<<<<<\e[0m"
+print_head "Add app user"
 useradd ${app_user}
 
-echo -e "\e[31m>>>>>>>>>>>Add app directory<<<<<<<<<<\e[0m"
+print_head "Add app directory"
 rm -rf /app
 mkdir /app
 
-echo -e "\e[31m>>>>>>>>>>>Download the app code<<<<<<<<<<\e[0m"
+print_head "Download the app code"
 curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment.zip
 cd /app
 
-echo -e "\e[31m>>>>>>>>>>>unzip the app code<<<<<<<<<<\e[0m"
+print_head "unzip the app code"
 unzip /tmp/payment.zip
 
-echo -e "\e[31m>>>>>>>>>>>Download dependencies<<<<<<<<<<\e[0m"
+print_head "Download dependencies"
 pip3.6 install -r requirements.txt
 
-echo -e "\e[31m>>>>>>>>>>>copy systemd file<<<<<<<<<<\e[0m"
+print_head "Copy systemd file"
 sed -i -e "s|rabbitmq_appuser_pwd|${rabbitmq_appuser_pwd}|" ${script_path}/payment.service
 cp ${script_path}/payment.service /etc/systemd/system/payment.service
 
-echo -e "\e[31m>>>>>>>>>>>Load the service<<<<<<<<<<\e[0m"
+print_head "Load the Service"
 systemctl daemon-reload
 systemctl enable payment
 systemctl restart payment

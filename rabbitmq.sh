@@ -3,23 +3,28 @@ script_path=$(dirname $script)
 source ${script_path}/common.sh
 rabbitmq_appuser_pwd=$1
 
+if [-z "$rabbitmq_appuser_pwd"]; then
+  echo Roboshop appuser pwd missing
+  exit
+fi
 
-echo -e "\e[31m>>>>>>>>>>>Configure YUM Repos<<<<<<<<<<\e[0m"
+
+print_head "Configure YUM Repos"
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
 
-echo -e "\e[31m>>>>>>>>>>>Install Erlang<<<<<<<<<<\e[0m"
+print_head "Install Erlang"
 yum install erlang -y
 
-echo -e "\e[31m>>>>>>>>>>>Configure YUM Repos for RabbitMQ<<<<<<<<<<\e[0m"
+print_head "Configure YUM Repos for RabbitMQ"
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
 
-echo -e "\e[31m>>>>>>>>>>>Install RabbitMQ<<<<<<<<<<\e[0m"
+print_head "Install RabbitMQ"
 yum install rabbitmq-server -y
 
-echo -e "\e[31m>>>>>>>>>>>Start RabbitMQ Service<<<<<<<<<<\e[0m"
+print_head "Start RabbitMQ Service"
 systemctl enable rabbitmq-server
 systemctl restart rabbitmq-server
 
-echo -e "\e[31m>>>>>>>>>>>change default username/pwd<<<<<<<<<<\e[0m"
+print_head "Change default username/pwd"
 rabbitmqctl add_user roboshop ${rabbitmq_appuser_pwd}
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
