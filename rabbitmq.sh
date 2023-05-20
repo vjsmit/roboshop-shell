@@ -8,23 +8,28 @@ if [-z "$rabbitmq_appuser_pwd"]; then
   exit
 fi
 
+func_print_head "Configure YUM Repos"
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>>$log_file
+func_status_check $?
 
-print_head "Configure YUM Repos"
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+func_print_head "Install Erlang"
+yum install erlang -y &>>$log_file
+func_status_check $?
 
-print_head "Install Erlang"
-yum install erlang -y
+func_print_head "Configure YUM Repos for RabbitMQ"
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$log_file
+func_status_check $?
 
-print_head "Configure YUM Repos for RabbitMQ"
-curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+func_print_head "Install RabbitMQ"
+yum install rabbitmq-server -y &>>$log_file
+func_status_check $?
 
-print_head "Install RabbitMQ"
-yum install rabbitmq-server -y
+func_print_head "Start RabbitMQ Service"
+systemctl enable rabbitmq-server &>>$log_file
+systemctl restart rabbitmq-server &>>$log_file
+func_status_check $?
 
-print_head "Start RabbitMQ Service"
-systemctl enable rabbitmq-server
-systemctl restart rabbitmq-server
-
-print_head "Change default username/pwd"
-rabbitmqctl add_user roboshop ${rabbitmq_appuser_pwd}
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+func_print_head "Change default username/pwd"
+rabbitmqctl add_user roboshop ${rabbitmq_appuser_pwd} &>>$log_file
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$log_file
+func_status_check $?
