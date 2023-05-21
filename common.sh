@@ -140,14 +140,20 @@ func_python(){
 
 func_golang() {
   func_print_head "Install GoLang"
-  yum install golang -y
+  yum install golang -y &>>$log_file
+  func_status_check $?
 
   func_app_prereq
 
   func_print_head "Download dependencies & build software"
-  go mod init dispatch
-  go get
-  go build
+  go mod init dispatch &>>$log_file
+  func_status_check $?
+
+  go get &>>$log_file
+  func_status_check $?
+
+  go build &>>$log_file
+  func_status_check $?
 
   func_systemd_setup
 }
