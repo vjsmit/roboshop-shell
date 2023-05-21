@@ -9,18 +9,23 @@ if [-z "$mysql_pwd"]; then
 fi
 
 
-echo -e "\e[31m>>>>>>>>>>DisableMySQL 8 Version"
-dnf module disable mysql -y
+func_print_head "Disable MySQL 8 Version"
+dnf module disable mysql -y &>>$log_file
+func_status_check $?
 
-echo -e "\e[31m>>>>>>>>>>Copy MySQL5.7 repo file"
-cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo
+func_print_head "Copy MySQL5.7 repo file"
+cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo &>>$log_file
+func_status_check $?
 
-echo -e "\e[31m>>>>>>>>>>Install MySQL Server"
-yum install mysql-community-server -y
+func_print_head "Install MySQL Server"
+yum install mysql-community-server -y &>>$log_file
+func_status_check $?
 
-echo -e "\e[31m>>>>>>>>>>Start MySQL Service"
-systemctl enable mysqld
-systemctl restart mysqld
+func_print_head "Start MySQL Service"
+systemctl enable mysqld &>>$log_file
+systemctl restart mysqld &>>$log_file
+func_status_check $?
 
-echo -e "\e[31m>>>>>>>>>>Reset MYSQL pwd"
-mysql_secure_installation --set-root-pass ${mysql_pwd}
+func_print_head "Reset MYSQL pwd"
+mysql_secure_installation --set-root-pass ${mysql_pwd} &>>$log_file
+func_status_check $?
