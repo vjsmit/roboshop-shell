@@ -1,5 +1,6 @@
 app_user=roboshop
-
+script=$(realpath "$0")
+script_path=$(dirname "$script")
 log_file=/tmp/roboshop.log
 #rm -f $log_file
 
