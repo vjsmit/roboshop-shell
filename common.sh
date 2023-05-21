@@ -137,3 +137,17 @@ func_python(){
 
   func_systemd_setup
 }
+
+func_golang() {
+  func_print_head "Install GoLang"
+  yum install golang -y
+
+  func_app_prereq
+
+  func_print_head "Download dependencies & build software"
+  go mod init dispatch
+  go get
+  go build
+
+  func_systemd_setup
+}
