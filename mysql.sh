@@ -8,7 +8,6 @@ if [-z "$mysql_pwd"]; then
   exit
 fi
 
-
 func_print_head "Disable MySQL 8 Version"
 dnf module disable mysql -y &>>$log_file
 func_status_check $?
