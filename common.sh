@@ -82,7 +82,7 @@ func_print_head "SystemD User Service"
  }
 
 func_nodejs() {
-  Setup NodeJS repo
+  func_print_head "Setup NodeJS repo"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
   func_status_check $?
 
